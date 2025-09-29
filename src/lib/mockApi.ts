@@ -247,3 +247,125 @@ export async function approveArtisan(email: string) {
   writeUsers(users);
   return delay({ success: true });
 }
+
+// Initialize dummy users for testing
+export function initializeDummyUsers() {
+  const users = readUsers();
+  
+  // Check if dummy users already exist
+  const existingUserEmails = users.map(u => u.email);
+  const dummyEmails = ['dave.tourist@test.com', 'dave.admin@test.com', 'dave.artisan@test.com'];
+  
+  if (dummyEmails.every(email => existingUserEmails.includes(email))) {
+    return; // Dummy users already exist
+  }
+
+  // Create dummy users
+  const dummyUsers: StoredUser[] = [
+    // Tourist User
+    {
+      id: "tourist-dave-001",
+      role: "tourist",
+      email: "dave.tourist@test.com",
+      phone: "+1234567890",
+      approved: true,
+      password: "dave", // As requested
+      data: {
+        fullName: "Dave Tourist",
+        address: "123 Adventure Street, Tourism City, TC 12345",
+        gender: "Male",
+        dateOfBirth: "1990-01-15",
+        emergencyContactName: "Sarah Tourist",
+        emergencyContactPhone: "+1234567891",
+        emergencyContactRelation: "Spouse"
+      }
+    },
+    // Admin User
+    {
+      id: "admin-dave-001",
+      role: "admin",
+      email: "dave.admin@test.com",
+      phone: "+1234567892",
+      approved: true,
+      password: "dave", // As requested
+      data: {
+        fullName: "Dave Administrator",
+        address: "456 Management Boulevard, Admin City, AC 67890",
+        gender: "Male",
+        dateOfBirth: "1985-03-22",
+        emergencyContactName: "Mike Administrator",
+        emergencyContactPhone: "+1234567893",
+        emergencyContactRelation: "Brother",
+        employeeId: "ADM-2025-001"
+      }
+    },
+    // Artisan User
+    {
+      id: "artisan-dave-001",
+      role: "artisan",
+      email: "dave.artisan@test.com",
+      phone: "+1234567894",
+      approved: true, // Pre-approved for testing
+      password: "dave", // As requested
+      data: {
+        fullName: "Dave Artisan",
+        businessName: "Dave's Traditional Crafts",
+        address: "789 Craft Lane, Artisan Village, AV 54321",
+        gender: "Male",
+        dateOfBirth: "1988-07-10",
+        emergencyContactName: "Lisa Artisan",
+        emergencyContactPhone: "+1234567895",
+        emergencyContactRelation: "Sister",
+        aadharNumber: "1234-5678-9012"
+      }
+    }
+  ];
+
+  // Add dummy users to existing users (avoid duplicates)
+  dummyUsers.forEach(dummyUser => {
+    if (!users.find(u => u.email === dummyUser.email)) {
+      users.push(dummyUser);
+    }
+  });
+
+  writeUsers(users);
+  console.log('Dummy users initialized successfully!');
+}
+
+export function resetAndInitializeDummyUsers() {
+  // Clear all existing users
+  localStorage.removeItem(STORAGE_KEYS.users);
+  localStorage.removeItem(STORAGE_KEYS.otps);
+  
+  // Initialize fresh dummy users
+  initializeDummyUsers();
+  
+  console.log('All users reset and dummy users re-initialized!');
+  return {
+    success: true,
+    message: 'Dummy users have been reset and re-initialized',
+    users: [
+      { role: 'tourist', email: 'dave.tourist@test.com', password: 'dave' },
+      { role: 'admin', email: 'dave.admin@test.com', password: 'dave' },
+      { role: 'artisan', email: 'dave.artisan@test.com', password: 'dave' }
+    ]
+  };
+}
+
+// Export for console access during development
+if (typeof window !== 'undefined') {
+  interface WindowWithHelpers extends Window {
+    resetDummyUsers?: () => { success: boolean; message: string; users: Array<{ role: string; email: string; password: string }> };
+    initDummyUsers?: () => void;
+  }
+  (window as WindowWithHelpers).resetDummyUsers = resetAndInitializeDummyUsers;
+  (window as WindowWithHelpers).initDummyUsers = initializeDummyUsers;
+}
+
+// Auto-initialize dummy users when this module is loaded
+if (typeof window !== 'undefined') {
+  // Only run in browser environment
+  setTimeout(() => {
+    initializeDummyUsers();
+  }, 100);
+}

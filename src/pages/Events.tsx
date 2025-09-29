@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -31,7 +30,6 @@ import {
 } from "lucide-react";
 
 const Events = () => {
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("upcoming");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedDate, setSelectedDate] = useState("2025-03-15");
@@ -758,21 +756,21 @@ const Events = () => {
 
   const getTabFilteredEvents = (eventsList: any[]) => {
     return eventsList.filter(event => {
-    const eventDate = new Date(event.date);
-    const today = new Date();
+      const eventDate = new Date(event.date);
+      const today = new Date();
       // Set time to start of day for accurate comparison
       today.setHours(0, 0, 0, 0);
       eventDate.setHours(0, 0, 0, 0);
-    
-    if (activeTab === "upcoming") {
-      return eventDate >= today;
-    } else if (activeTab === "past") {
-      return eventDate < today;
+      
+      if (activeTab === "upcoming") {
+        return eventDate >= today;
+      } else if (activeTab === "past") {
+        return eventDate < today;
       } else if (activeTab === "featured") {
-      return event.featured;
-    }
+        return event.featured;
+      }
       return true; // Default case
-  });
+    });
   };
 
   const filteredEvents = getFilteredEvents(getTabFilteredEvents(events));
@@ -907,44 +905,44 @@ const Events = () => {
                 </Button>
               </div>
             ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-              {filteredEvents.map((event) => {
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                {filteredEvents.map((event) => {
                 const EventIcon = getEventIcon(event.category);
                 return (
                   <Dialog key={event.id}>
                     <DialogTrigger asChild>
                       <Card className="travel-card group overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
-                    <div className="relative">
-                      <img 
-                        src={event.image} 
-                        alt={event.title}
-                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      
+                        <div className="relative">
+                          <img 
+                            src={event.image} 
+                            alt={event.title}
+                            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          
                           {/* Event Type Badge */}
-                      <div className="absolute top-3 left-3">
+                          <div className="absolute top-3 left-3">
                             <Badge className="bg-blue-500/10 text-blue-600 border-blue-500/20">
-                              {event.eventType || event.category || "Event"}
+                              {event.eventType || event.category}
                             </Badge>
-                      </div>
-                      
-                      <div className="absolute top-3 right-3 flex gap-2">
+                          </div>
+                          
+                          <div className="absolute top-3 right-3 flex gap-2">
                             <Badge className="bg-yellow-500 text-white">
                               <Star className="h-3 w-3 mr-1" />
                               {event.rating}
-                          </Badge>
-                        <Button variant="ghost" size="icon" className="bg-background/80 hover:bg-background">
-                          <Heart className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
+                            </Badge>
+                            <Button variant="ghost" size="icon" className="bg-background/80 hover:bg-background">
+                              <Heart className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
 
-                    <CardContent className="p-6">
+                        <CardContent className="p-6">
                           <div className="space-y-4">
-                        {/* Title */}
+                            {/* Title */}
                             <h3 className="text-2xl font-bold text-foreground line-clamp-2">
-                          {event.title}
-                        </h3>
+                              {event.title}
+                            </h3>
 
                             {/* Location */}
                             <div className="flex items-center text-sm text-muted-foreground">
@@ -953,9 +951,9 @@ const Events = () => {
                             </div>
 
                             {/* Description Snippet */}
-                        <p className="text-muted-foreground line-clamp-2">
-                          {event.description}
-                        </p>
+                            <p className="text-muted-foreground line-clamp-2">
+                              {event.description}
+                            </p>
 
                             {/* Cultural Significance */}
                             <div className="bg-muted/30 rounded-lg p-4">
@@ -971,7 +969,7 @@ const Events = () => {
                             </div>
 
                             {/* Best Time to Visit / Duration */}
-                        <div className="flex items-center text-sm text-muted-foreground">
+                            <div className="flex items-center text-sm text-muted-foreground">
                               <Clock className="h-4 w-4 mr-1" />
                               <span>{event.duration || "Full Day"}</span>
                             </div>
@@ -980,16 +978,16 @@ const Events = () => {
                             <div className="flex items-center text-sm text-muted-foreground">
                               <Users className="h-4 w-4 mr-1" />
                               <span>{event.attendees}+ attending</span>
-                        </div>
+                            </div>
 
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-1">
-                          {event.tags.slice(0, 3).map((tag, index) => (
+                            {/* Tags */}
+                            <div className="flex flex-wrap gap-1">
+                              {event.tags.slice(0, 3).map((tag, index) => (
                                 <Badge key={index} variant="secondary" className="text-xs bg-gray-100 text-gray-700">
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
+                                  {tag}
+                                </Badge>
+                              ))}
+                            </div>
 
                             {/* Action Buttons */}
                             <div className="flex gap-2 pt-3">
@@ -1031,7 +1029,7 @@ const Events = () => {
                                       <div>
                                         <h3 className="text-lg font-semibold mb-3">Event Information</h3>
                                         <div className="space-y-2">
-                            <div className="flex items-center">
+                                          <div className="flex items-center">
                                             <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
                                             <span>{new Date(event.date).toLocaleDateString('en-IN', { 
                                               day: 'numeric', 
@@ -1049,35 +1047,31 @@ const Events = () => {
                                           </div>
                                           <div className="flex items-center">
                                             <Users className="h-4 w-4 mr-2 text-muted-foreground" />
-                              <span>{event.attendees} going</span>
-                            </div>
-                            <div className="flex items-center">
-                                            <span className="font-medium">Price: {event.price}</span>
-                            </div>
-                                          <div className="flex items-center">
-                                            <span className="font-medium">Duration: {event.duration || "Not specified"}</span>
-                          </div>
-                                          <div className="flex items-center">
-                                            <span className="font-medium">Age Group: {event.ageGroup || "All Ages"}</span>
+                                            <span>{event.attendees} going</span>
                                           </div>
                                           <div className="flex items-center">
-                                            <span className="font-medium">Language: {event.language || "Hindi, English"}</span>
+                                            <span className="font-medium">Price: {event.price}</span>
+                                          </div>
+                                          <div className="flex items-center">
+                                            <span className="font-medium">Duration: {event.duration}</span>
+                                          </div>
+                                          <div className="flex items-center">
+                                            <span className="font-medium">Age Group: {event.ageGroup}</span>
+                                          </div>
+                                          <div className="flex items-center">
+                                            <span className="font-medium">Language: {event.language}</span>
                                           </div>
                                         </div>
-                        </div>
+                                      </div>
 
                                       <div>
                                         <h3 className="text-lg font-semibold mb-3">Activities</h3>
                                         <div className="grid grid-cols-1 gap-2">
-                                          {event.activities && event.activities.length > 0 ? (
-                                            event.activities.map((activity, index) => (
-                                              <Badge key={index} variant="outline" className="text-xs">
-                                                {activity}
-                                              </Badge>
-                                            ))
-                                          ) : (
-                                            <p className="text-sm text-muted-foreground">No activities listed</p>
-                                          )}
+                                          {event.activities.map((activity, index) => (
+                                            <Badge key={index} variant="outline" className="text-xs">
+                                              {activity}
+                                            </Badge>
+                                          ))}
                                         </div>
                                       </div>
                                     </div>
@@ -1088,7 +1082,7 @@ const Events = () => {
                                         <Sparkles className="h-6 w-6 text-cultural-orange mt-1 flex-shrink-0" />
                                         <div>
                                           <h3 className="text-lg font-semibold mb-3">Cultural Significance</h3>
-                                          <p className="text-muted-foreground leading-relaxed">{event.culturalSignificance || "This event celebrates the rich cultural heritage of Jharkhand."}</p>
+                                          <p className="text-muted-foreground leading-relaxed">{event.culturalSignificance}</p>
                                         </div>
                                       </div>
                                     </div>
@@ -1123,7 +1117,7 @@ const Events = () => {
                                       >
                                         <Ticket className="h-5 w-5 mr-2" />
                                         {event.price === "Free" ? "Register Now" : "Book Now - " + event.price}
-                          </Button>
+                                      </Button>
                                     </div>
                                   </div>
                                 </DialogContent>
@@ -1138,13 +1132,13 @@ const Events = () => {
                                   setShowBookingModal(true);
                                 }}
                               >
-                            <Ticket className="h-4 w-4 mr-1" />
-                            {event.price === "Free" ? "Register" : "Book Now"}
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                                <Ticket className="h-4 w-4 mr-1" />
+                                {event.price === "Free" ? "Register" : "Book Now"}
+                              </Button>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
                     </DialogTrigger>
                     
                     <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -1203,13 +1197,13 @@ const Events = () => {
                                 <span className="font-medium">Price: {event.price}</span>
                               </div>
                               <div className="flex items-center">
-                                <span className="font-medium">Duration: {event.duration || "Not specified"}</span>
+                                <span className="font-medium">Duration: {event.duration}</span>
                               </div>
                               <div className="flex items-center">
-                                <span className="font-medium">Age Group: {event.ageGroup || "All Ages"}</span>
+                                <span className="font-medium">Age Group: {event.ageGroup}</span>
                               </div>
                               <div className="flex items-center">
-                                <span className="font-medium">Language: {event.language || "Hindi, English"}</span>
+                                <span className="font-medium">Language: {event.language}</span>
                               </div>
                             </div>
                           </div>
@@ -1217,15 +1211,11 @@ const Events = () => {
                           <div>
                             <h3 className="text-lg font-semibold mb-3">Activities</h3>
                             <div className="grid grid-cols-1 gap-2">
-                              {event.activities && event.activities.length > 0 ? (
-                                event.activities.map((activity, index) => (
-                                  <Badge key={index} variant="outline" className="text-xs">
-                                    {activity}
-                                  </Badge>
-                                ))
-                              ) : (
-                                <p className="text-sm text-muted-foreground">No activities listed</p>
-                              )}
+                              {event.activities.map((activity, index) => (
+                                <Badge key={index} variant="outline" className="text-xs">
+                                  {activity}
+                                </Badge>
+                              ))}
                             </div>
                           </div>
                         </div>
@@ -1236,7 +1226,7 @@ const Events = () => {
                             <Sparkles className="h-6 w-6 text-cultural-orange mt-1 flex-shrink-0" />
                             <div>
                               <h3 className="text-lg font-semibold mb-3">Cultural Significance</h3>
-                              <p className="text-muted-foreground leading-relaxed">{event.culturalSignificance || "This event celebrates the rich cultural heritage of Jharkhand."}</p>
+                              <p className="text-muted-foreground leading-relaxed">{event.culturalSignificance}</p>
                             </div>
                           </div>
                         </div>
@@ -1266,13 +1256,6 @@ const Events = () => {
                             size="lg"
                             className="bg-gradient-to-r from-primary to-cultural-orange hover:from-primary/90 hover:to-cultural-orange/90 transition-all"
                             onClick={() => {
-                              // Check if user is logged in
-                              const authUser = localStorage.getItem("auth_user");
-                              if (!authUser) {
-                                navigate("/login");
-                                return;
-                              }
-                              
                               setSelectedEvent(event);
                               setShowBookingModal(true);
                             }}
@@ -1286,7 +1269,7 @@ const Events = () => {
                   </Dialog>
                 );
               })}
-            </div>
+              </div>
             )}
           </TabsContent>
         </Tabs>
@@ -1300,7 +1283,7 @@ const Events = () => {
 
         {/* Event Calendar Section */}
         {showCalendar && (
-        <section className="mt-16">
+          <section className="mt-16">
             <Calendar2025 
               events={events} 
               onEventClick={(event) => {
@@ -1329,11 +1312,11 @@ const Events = () => {
                     <div>
                       <span className="text-muted-foreground">Date:</span>
                       <p className="font-medium">{new Date(selectedEvent.date).toLocaleDateString('en-IN')}</p>
-                </div>
+                    </div>
                     <div>
                       <span className="text-muted-foreground">Time:</span>
                       <p className="font-medium">{selectedEvent.time}</p>
-              </div>
+                    </div>
                     <div>
                       <span className="text-muted-foreground">Location:</span>
                       <p className="font-medium">{selectedEvent.location}</p>
@@ -1382,7 +1365,7 @@ const Events = () => {
                     onClick={() => setShowBookingModal(false)}
                   >
                     Cancel
-          </Button>
+                  </Button>
                   <Button 
                     variant="cultural" 
                     className="flex-1"

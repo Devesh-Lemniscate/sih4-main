@@ -11,7 +11,7 @@ import ServiceCard from "@/components/marketplace/ServiceCard";
 import BookingModal from "@/components/marketplace/BookingModal";
 import ProductDetailModal from "@/components/marketplace/ProductDetailModal";
 import Cart from "@/components/marketplace/Cart";
-import { CartProvider } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/CartContext";
 import {
   Carousel,
   CarouselContent,
@@ -45,10 +45,10 @@ import marketplaceHero from "@/assets/marketplace-hero.jpg";
 
 const Marketplace = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const { addToCart, getTotalItems } = useCart();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [activeTab, setActiveTab] = useState<"products" | "artisans" | "services">("products");
   const [favorites, setFavorites] = useState<number[]>([]);
-  const [cart, setCart] = useState<number[]>([]);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -1511,9 +1511,12 @@ const Marketplace = () => {
 
   // Handler functions
   const handleAddToCart = (productId: number) => {
-    setCart(prev => [...prev, productId]);
-    // In a real app, you'd make an API call here
-    console.log(`Added product ${productId} to cart`);
+    // Find the product in the products array
+    const product = products.find(p => p.id === productId);
+    if (product) {
+      addToCart(product);
+      console.log(`Added product ${productId} to cart`);
+    }
   };
 
   const handleToggleFavorite = (productId: number) => {
@@ -1566,7 +1569,6 @@ const Marketplace = () => {
   }, [heroApi]);
 
   return (
-    <CartProvider>
       <Layout>
       {/* Hero Section - Carousel */}
       <div className="h-64 relative">
@@ -1669,10 +1671,15 @@ const Marketplace = () => {
           <Button
             variant="outline"
             onClick={() => setIsCartOpen(true)}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 relative"
           >
             <ShoppingCart className="h-4 w-4" />
             Cart
+            {getTotalItems() > 0 && (
+              <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full text-xs px-1.5 py-0.5 min-w-[20px] text-center">
+                {getTotalItems()}
+              </span>
+            )}
           </Button>
         </div>
 
@@ -1878,7 +1885,6 @@ const Marketplace = () => {
         onClose={() => setIsCartOpen(false)}
       />
       </Layout>
-    </CartProvider>
   );
 };
 

@@ -3,13 +3,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Compass, Menu, User, AlertTriangle, LogOut } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Compass, Menu, User, AlertTriangle, LogOut, UserCircle2, NotebookPen, Settings } from "lucide-react";
 
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Marketplace", href: "/marketplace" },
   { name: "Hotels", href: "/hotels" },
   { name: "Itinerary Planner", href: "/itinerary" },
+  { name: "AR Maps", href: "/ar-map" },
+  { name: "Recommendations", href: "/recommendations" },
   { name: "Events", href: "/events" },
 ];
 
@@ -87,18 +90,65 @@ export default function Navbar() {
               </Button>
             </Link>
             {authUser ? (
-              <div className="flex items-center space-x-2">
-                <Link to="/profile">
-                  <Button variant="outline">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="bg-gradient-to-r from-primary/10 to-orange-500/10 border-primary/20 hover:from-primary/20 hover:to-orange-500/20">
                     <User className="h-4 w-4" />
-                    {authUser.fullName || "Profile"}
+                    {authUser.fullName || "Account"}
                   </Button>
-                </Link>
-                <Button variant="outline" onClick={handleLogout}>
-                  <LogOut className="h-4 w-4" />
-                  Logout
-                </Button>
-              </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64 p-0 bg-background border-border shadow-2xl">
+                  {/* User Profile Header */}
+                  <div className="bg-gradient-to-r from-primary to-orange-500 p-4 text-white">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                        {authUser.profileImage ? (
+                          <img src={authUser.profileImage} alt="Profile" className="w-12 h-12 rounded-full object-cover" />
+                        ) : (
+                          <UserCircle2 className="h-8 w-8 text-white" />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold">{authUser.fullName || "User"}</h3>
+                        <p className="text-white/80 text-sm">{authUser.email || "user@example.com"}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <DropdownMenuSeparator />
+
+                  {/* Quick Actions */}
+                  <div className="p-2">
+                    <Link to="/journal">
+                      <DropdownMenuItem className="cursor-pointer hover:bg-accent rounded-lg p-3 text-foreground">
+                        <NotebookPen className="h-4 w-4 mr-3 text-primary" />
+                        Travel Journal
+                      </DropdownMenuItem>
+                    </Link>
+                    <Link to="/profile">
+                      <DropdownMenuItem className="cursor-pointer hover:bg-accent rounded-lg p-3 text-foreground">
+                        <UserCircle2 className="h-4 w-4 mr-3 text-primary" />
+                        Profile
+                      </DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuItem className="cursor-pointer hover:bg-accent rounded-lg p-3 text-foreground" asChild>
+                      <Link to="/settings">
+                        <Settings className="h-4 w-4 mr-3 text-primary" />
+                        Settings
+                      </Link>
+                    </DropdownMenuItem>
+                  </div>
+
+                  <DropdownMenuSeparator />
+
+                  <div className="p-2">
+                    <DropdownMenuItem className="cursor-pointer hover:bg-red-50 rounded-lg p-3 text-red-600 hover:text-red-700" onClick={handleLogout}>
+                      <LogOut className="h-4 w-4 mr-3" />
+                      Logout
+                    </DropdownMenuItem>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <Link to="/login">
                 <Button variant="outline">
@@ -165,10 +215,22 @@ export default function Navbar() {
                     </Link>
                     {authUser ? (
                       <>
+                        <Link to="/journal" onClick={() => setIsOpen(false)}>
+                          <Button variant="outline" className="w-full justify-start">
+                            <NotebookPen className="h-4 w-4 mr-2" />
+                            Travel Journal
+                          </Button>
+                        </Link>
                         <Link to="/profile" onClick={() => setIsOpen(false)}>
                           <Button className="w-full justify-start">
                             <User className="h-4 w-4 mr-2" />
                             {authUser.fullName || "Profile"}
+                          </Button>
+                        </Link>
+                        <Link to="/settings" onClick={() => setIsOpen(false)}>
+                          <Button variant="outline" className="w-full justify-start">
+                            <Settings className="h-4 w-4 mr-2" />
+                            Settings
                           </Button>
                         </Link>
                         <Button variant="outline" className="w-full justify-start" onClick={() => { handleLogout(); setIsOpen(false); }}>

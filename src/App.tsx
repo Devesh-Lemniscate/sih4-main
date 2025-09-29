@@ -13,6 +13,11 @@ import Events from "./pages/Events";
 import Safety from "./pages/Safety";
 import Journal from "./pages/Journal";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import Recommendations from "./pages/Recommendations";
+import ARMap from "./pages/ARMap";
+import TestPage from "./pages/TestPage";
+import Settings from "./pages/Settings";
 import AdminDashboard from "./pages/AdminDashboard";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
@@ -39,6 +44,11 @@ const App = () => (
             <Route path="/safety" element={<Safety />} />
             <Route path="/journal" element={<Journal />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/recommendations" element={<Recommendations />} />
+            <Route path="/ar-map" element={<ARMap />} />
+            <Route path="/test" element={<TestPage />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
