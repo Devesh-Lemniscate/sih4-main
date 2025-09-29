@@ -1,40 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* KalpanaX Travel Platform Design System */
+/* Jharkhand Tourism Platform - Professional Design System */
 
 @layer base {
   :root {
     /* Base Colors */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 20 14% 98%;
+    --foreground: 15 10% 13%;
 
     /* Card System */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 15 10% 13%;
 
     /* Popover System */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 15 10% 13%;
 
-    /* Travel Brand Primary - Nature Green */
-    --primary: 142 71% 45%;
+    /* Tourism Brand Primary - Forest Green */
+    --primary: 157 36% 37%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 142 61% 55%;
-    --primary-dark: 142 81% 35%;
 
-    /* Secondary - Earth Tones */
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Warm Earth */
+    --secondary: 34 30% 92%;
+    --secondary-foreground: 15 10% 13%;
 
-    /* Muted Colors */
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    /* Accent - Cultural Orange */
-    --accent: 24 95% 53%;
+    /* Tourism Color Palette */
+    --accent: 25 85% 56%;
     --accent-foreground: 0 0% 100%;
+    
+    --muted: 34 15% 95%;
+    --muted-foreground: 15 10% 45%;
 
     /* Alert Colors */
     --destructive: 0 84.2% 60.2%;
@@ -43,42 +41,213 @@
     /* Borders & Inputs */
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 142 71% 45%;
+    --ring: 157 36% 37%;
 
     /* Radius */
     --radius: 0.75rem;
+  }
 
-    /* Travel Theme Specific Colors */
-    --eco-green: 142 71% 45%;
-    --cultural-orange: 24 95% 53%;
-    --adventure-blue: 217 91% 60%;
-    --safety-red: 0 84% 60%;
-    --warning-amber: 43 96% 56%;
+  .dark {
+    --background: 157 20% 8%;
+    --foreground: 34 30% 95%;
+    
+    --card: 157 20% 10%;
+    --card-foreground: 34 30% 90%;
+    
+    --popover: 157 20% 10%;
+    --popover-foreground: 34 30% 90%;
+    
+    --primary: 157 36% 47%;
+    --primary-foreground: 157 20% 8%;
+    
+    --secondary: 157 20% 15%;
+    --secondary-foreground: 34 30% 85%;
+    
+    --muted: 157 20% 15%;
+    --muted-foreground: 34 15% 65%;
+    
+    --accent: 25 85% 56%;
+    --accent-foreground: 157 20% 8%;
+    
+    --destructive: 0 62.8% 60.5%;
+    --destructive-foreground: 34 30% 95%;
+    
+    --border: 157 20% 20%;
+    --input: 157 20% 20%;
+    --ring: 157 36% 47%;
+  }
 
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--eco-green)), hsl(var(--cultural-orange)));
-    --gradient-card: linear-gradient(145deg, hsl(var(--background)), hsl(var(--muted)));
-    --gradient-cta: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
 
-    /* Shadows */
-    --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.3);
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-    /* Animations */
-    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-fast: all 0.15s ease;
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Professional Tourism UI Components */
+  .hero-section {
+    background: linear-gradient(135deg, rgba(66, 113, 90, 0.9) 0%, rgba(45, 75, 58, 0.95) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card:hover {
+    box-shadow: 0 8px 40px rgba(66, 113, 90, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .tourism-card {
+    @apply bg-white rounded-xl shadow-lg border-0 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+  }
+
+  .tourism-button {
+    @apply px-6 py-3 rounded-lg font-medium text-white transition-all duration-300 transform hover:scale-105;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    box-shadow: 0 2px 20px rgba(66, 113, 90, 0.08);
+  }
+
+  .tourism-button:hover {
+    box-shadow: 0 8px 40px rgba(66, 113, 90, 0.15);
+  }
+
+  .section-header {
+    @apply text-center mb-12;
+  }
+
+  .section-title {
+    @apply text-4xl font-bold mb-4 text-foreground;
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed;
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary));
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border;
+  }
+  
+  .btn-accent {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90;
+  }
+
+  .card-elevated {
+    @apply bg-card border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1;
+  }
+  
+  .card-glass {
+    @apply backdrop-blur-md bg-white/10 border border-white/20 shadow-lg;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+  
+  .text-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Improved contrast utilities */
+  .text-contrast-high {
+    color: hsl(var(--foreground));
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-contrast-white {
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .bg-contrast-dark {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+  }
+  
+  .bg-contrast-light {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+  }
+  
+  /* Better button contrast */
+  .btn-outline-contrast {
+    @apply border-2 border-current bg-black/20 backdrop-blur-sm hover:bg-white hover:text-primary transition-all duration-300 shadow-lg;
+  }
+}
 
     /* Sidebar Variables */
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+   
 
   .dark {
     --background: 222.2 84% 4.9%;
@@ -118,7 +287,6 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-}
 
 @layer base {
   * {

@@ -16,16 +16,8 @@ import {
   RefreshCw
 } from "lucide-react";
 
-interface PendingArtisan {
-  email: string;
-  fullName: string;
-  phone: string;
-  specialization: string;
-  experience: number;
-}
-
 export default function AdminDashboard() {
-  const [pending, setPending] = useState<PendingArtisan[]>([]);
+  const [pending, setPending] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
   const refresh = async () => {

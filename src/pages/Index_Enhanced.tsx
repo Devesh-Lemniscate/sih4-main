@@ -116,9 +116,7 @@ const Index = () => {
     const onSelect = () => setHeroIndex(heroApi.selectedScrollSnap());
     onSelect();
     heroApi.on("select", onSelect);
-    return () => {
-      heroApi.off("select", onSelect);
-    };
+    return () => heroApi.off("select", onSelect);
   }, [heroApi]);
 
   return (
@@ -174,25 +172,21 @@ const Index = () => {
                       transition={{ duration: 0.8, delay: 0.4 }}
                       className="flex flex-col sm:flex-row gap-6 justify-center mb-12"
                     >
-                      <Link to="/marketplace">
-                        <Button 
-                          size="lg" 
-                          className="tourism-button text-lg px-10 py-4 h-auto transform hover:scale-105 transition-all duration-300 shadow-2xl"
-                        >
-                          <Camera className="h-5 w-5 mr-2" />
-                          {slide.primaryButton}
-                        </Button>
-                      </Link>
-                      <Link to="/ar-map">
-                        <Button 
-                          size="lg" 
-                          variant="outline" 
-                          className="text-lg px-10 py-4 h-auto border-2 border-white/70 text-white hover:bg-white hover:text-primary backdrop-blur-sm transition-all duration-300 bg-black/20 shadow-lg font-semibold"
-                        >
-                          <Play className="h-5 w-5 mr-2" />
-                          {slide.secondaryButton}
-                        </Button>
-                      </Link>
+                      <Button 
+                        size="lg" 
+                        className="tourism-button text-lg px-10 py-4 h-auto transform hover:scale-105 transition-all duration-300 shadow-2xl"
+                      >
+                        <Camera className="h-5 w-5 mr-2" />
+                        {slide.primaryButton}
+                      </Button>
+                      <Button 
+                        size="lg" 
+                        variant="outline" 
+                        className="text-lg px-10 py-4 h-auto border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
+                      >
+                        <Play className="h-5 w-5 mr-2" />
+                        {slide.secondaryButton}
+                      </Button>
                     </motion.div>
             
                     {/* Enhanced Search Bar */}
@@ -226,12 +220,10 @@ const Index = () => {
                               </div>
                             </div>
                             <div className="flex items-end">
-                              <Link to="/hotels" className="w-full">
-                                <Button className="w-full h-12 tourism-button text-lg font-semibold">
-                                  <Search className="h-5 w-5 mr-2" />
-                                  Explore
-                                </Button>
-                              </Link>
+                              <Button className="w-full h-12 tourism-button text-lg font-semibold">
+                                <Search className="h-5 w-5 mr-2" />
+                                Explore
+                              </Button>
                             </div>
                           </div>
                         </CardContent>
@@ -449,15 +441,13 @@ const Index = () => {
                   </div>
                   
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <Link to="/ar-map">
-                      <motion.button 
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="h-16 w-16 rounded-full bg-white/25 hover:bg-white/35 transition-colors flex items-center justify-center backdrop-blur-sm"
-                      >
-                        <Play className="h-8 w-8 text-white ml-1" />
-                      </motion.button>
-                    </Link>
+                    <motion.button 
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="h-16 w-16 rounded-full bg-white/25 hover:bg-white/35 transition-colors flex items-center justify-center backdrop-blur-sm"
+                    >
+                      <Play className="h-8 w-8 text-white ml-1" />
+                    </motion.button>
                   </div>
                   
                   <div className="absolute bottom-4 left-4 right-4 text-white">
@@ -486,24 +476,21 @@ const Index = () => {
                 title: "VR Headset",
                 description: "Full immersion with 360° experiences",
                 buttonText: "Try VR",
-                gradient: "from-blue-500 to-purple-600",
-                link: "/ar-map"
+                gradient: "from-blue-500 to-purple-600"
               },
               {
                 icon: Smartphone,
                 title: "Mobile AR",
                 description: "Augmented reality on your smartphone",
                 buttonText: "Open AR",
-                gradient: "from-purple-600 to-pink-500",
-                link: "/ar-map"
+                gradient: "from-purple-600 to-pink-500"
               },
               {
                 icon: Monitor,
                 title: "Web Preview",
                 description: "360° preview in your browser",
                 buttonText: "View Now",
-                gradient: "from-green-500 to-blue-500",
-                link: "/ar-map"
+                gradient: "from-green-500 to-blue-500"
               }
             ].map((item, idx) => (
               <motion.div
@@ -518,11 +505,9 @@ const Index = () => {
                     <item.icon className="h-12 w-12 mx-auto mb-4" />
                     <h4 className="text-xl font-semibold mb-2">{item.title}</h4>
                     <p className="text-white/90 mb-6">{item.description}</p>
-                    <Link to={item.link}>
-                      <Button variant="outline" className="bg-white/20 border-white/30 text-white hover:bg-white/30">
-                        {item.buttonText}
-                      </Button>
-                    </Link>
+                    <Button variant="outline" className="bg-white/20 border-white/30 text-white hover:bg-white/30">
+                      {item.buttonText}
+                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -693,7 +678,7 @@ const Index = () => {
               </Button>
             </Link>
             <Link to="/itinerary">
-              <Button size="lg" variant="outline" className="border-2 border-white/70 text-white hover:bg-white hover:text-primary px-10 py-4 text-lg font-semibold bg-black/20 backdrop-blur-sm transition-all duration-300 shadow-lg">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 px-10 py-4 text-lg font-semibold">
                 <Map className="mr-3 h-5 w-5" />
                 Plan Your Trip
               </Button>

@@ -39,48 +39,6 @@ import {
   Palette
 } from "lucide-react";
 
-// Type definitions
-interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: string;
-  originalPrice?: string;
-  rating: number;
-  reviews: number;
-  vendor: string;
-  location: string;
-  image: string;
-  verified: boolean;
-  category: string;
-  tags: string[];
-}
-
-interface Service {
-  id: number;
-  serviceName: string;
-  description: string;
-  pricePerHour: number;
-  artisanId: number;
-  artisanName: string;
-  artisanImage: string;
-  artisanRating: number;
-  artisanLocation: string;
-  category: string;
-  duration: string;
-  maxParticipants: number;
-  image: string;
-  tags: string[];
-}
-
-interface BookingData {
-  serviceId: number;
-  date: string;
-  time: string;
-  participants: number;
-  notes?: string;
-}
-
 const Marketplace = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const { addToCart, getTotalItems } = useCart();
@@ -88,11 +46,11 @@ const Marketplace = () => {
   const [activeTab, setActiveTab] = useState<"products" | "artisans" | "services">("products");
   const [favorites, setFavorites] = useState<number[]>([]);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [selectedService, setSelectedService] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isProductDetailModalOpen, setIsProductDetailModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
   
   // Hero carousel state
   const [heroApi, setHeroApi] = useState<CarouselApi | null>(null);
@@ -259,7 +217,7 @@ const Marketplace = () => {
     setIsBookingModalOpen(true);
   };
 
-  const handleConfirmBooking = (bookingData: BookingData) => {
+  const handleConfirmBooking = (bookingData: any) => {
     console.log('Booking confirmed:', bookingData);
     setIsBookingModalOpen(false);
     setSelectedService(null);
